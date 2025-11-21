@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { InstructorEvalService } from './instructor-eval.service';
-import { InstructorEvalController } from './instructor-eval.controller';
 import { MongooseModule } from '@nestjs/mongoose';
+import { InstructorEvalController } from './instructor-eval.controller';
+import { InstructorEvaluationService } from './instructor-eval.service';
 import {
   InstructorEvaluation,
   InstructorEvaluationSchema,
@@ -14,6 +14,7 @@ import {
     ]),
   ],
   controllers: [InstructorEvalController],
-  providers: [InstructorEvalService],
+  providers: [InstructorEvaluationService],
+  exports: [InstructorEvaluationService],
 })
 export class InstructorEvalModule {}

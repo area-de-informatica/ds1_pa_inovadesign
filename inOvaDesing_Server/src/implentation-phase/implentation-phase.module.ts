@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ImplentationPhaseService } from './implentation-phase.service';
 import { ImplentationPhaseController } from './implentation-phase.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
   ImplementationPhase,
   ImplementationPhaseSchema,
 } from './schemas/implementation-phase.schema';
+import { ImplementationPhaseService } from './implentation-phase.service';
 
 @Module({
   imports: [
@@ -14,6 +14,7 @@ import {
     ]),
   ],
   controllers: [ImplentationPhaseController],
-  providers: [ImplentationPhaseService],
+  providers: [ImplementationPhaseService],
+  exports: [ImplementationPhaseService],
 })
 export class ImplentationPhaseModule {}
