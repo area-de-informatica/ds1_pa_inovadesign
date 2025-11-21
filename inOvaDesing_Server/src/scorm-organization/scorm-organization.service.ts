@@ -1,10 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import {
+  ScormOrganization,
+  ScormOrganizationDocument,
+} from './schemas/scorm-organization.schema';
 import { CreateScormOrganizationDto } from './dto/create-scorm-organization.dto';
 import { UpdateScormOrganizationDto } from './dto/update-scorm-organization.dto';
 
 @Injectable()
 export class ScormOrganizationService {
-  create(createScormOrganizationDto: CreateScormOrganizationDto) {
+  constructor(
+    @InjectModel(ScormOrganization.name)
+    private model: Model<ScormOrganizationDocument>,
+  ) {}
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_createScormOrganizationDto: CreateScormOrganizationDto) {
     return 'This action adds a new scormOrganization';
   }
 
@@ -16,7 +28,8 @@ export class ScormOrganizationService {
     return `This action returns a #${id} scormOrganization`;
   }
 
-  update(id: number, updateScormOrganizationDto: UpdateScormOrganizationDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, _updateScormOrganizationDto: UpdateScormOrganizationDto) {
     return `This action updates a #${id} scormOrganization`;
   }
 

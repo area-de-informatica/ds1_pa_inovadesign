@@ -5,6 +5,8 @@ import {
   EvaluationPhase,
   EvaluationPhaseDocument,
 } from './schemas/evaluation-phase.schema';
+import { CreateEvaluationPhaseDto } from './dto/create-evaluation-phase.dto';
+import { UpdateEvaluationPhaseDto } from './dto/update-evaluation-phase.dto';
 
 @Injectable()
 export class EvaluationPhaseService {
@@ -13,7 +15,8 @@ export class EvaluationPhaseService {
     private model: Model<EvaluationPhaseDocument>,
   ) {}
 
-  create(createEvaluationPhaseDto: CreateEvaluationPhaseDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_createEvaluationPhaseDto: CreateEvaluationPhaseDto) {
     return 'This action adds a new evaluationPhase';
   }
 
@@ -25,7 +28,8 @@ export class EvaluationPhaseService {
     return `This action returns a #${id} evaluationPhase`;
   }
 
-  update(id: number, updateEvaluationPhaseDto: UpdateEvaluationPhaseDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, _updateEvaluationPhaseDto: UpdateEvaluationPhaseDto) {
     return `This action updates a #${id} evaluationPhase`;
   }
 

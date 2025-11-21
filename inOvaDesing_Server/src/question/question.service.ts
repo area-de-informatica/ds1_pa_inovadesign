@@ -11,7 +11,8 @@ export class QuestionService {
     @InjectModel(Question.name)
     private model: Model<QuestionDocument>,
   ) {}
-  create(createQuestionDto: CreateQuestionDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_createQuestionDto: CreateQuestionDto) {
     return 'This action adds a new question';
   }
 
@@ -23,7 +24,8 @@ export class QuestionService {
     return `This action returns a #${id} question`;
   }
 
-  update(id: number, updateQuestionDto: UpdateQuestionDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, _updateQuestionDto: UpdateQuestionDto) {
     return `This action updates a #${id} question`;
   }
 

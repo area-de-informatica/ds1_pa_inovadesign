@@ -1,10 +1,21 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import {
+  ScormResource,
+  ScormResourceDocument,
+} from './schemas/scorm-resource.schema';
 import { CreateScormResourceDto } from './dto/create-scorm-resource.dto';
 import { UpdateScormResourceDto } from './dto/update-scorm-resource.dto';
 
 @Injectable()
 export class ScormResourceService {
-  create(createScormResourceDto: CreateScormResourceDto) {
+  constructor(
+    @InjectModel(ScormResource.name)
+    private model: Model<ScormResourceDocument>,
+  ) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_createScormResourceDto: CreateScormResourceDto) {
     return 'This action adds a new scormResource';
   }
 
@@ -16,7 +27,8 @@ export class ScormResourceService {
     return `This action returns a #${id} scormResource`;
   }
 
-  update(id: number, updateScormResourceDto: UpdateScormResourceDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, _updateScormResourceDto: UpdateScormResourceDto) {
     return `This action updates a #${id} scormResource`;
   }
 

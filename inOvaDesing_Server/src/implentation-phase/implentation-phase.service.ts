@@ -5,6 +5,8 @@ import {
   ImplementationPhase,
   ImplementationPhaseDocument,
 } from './schemas/implementation-phase.schema';
+import { UpdateImplentationPhaseDto } from './dto/update-implentation-phase.dto';
+import { CreateImplentationPhaseDto } from './dto/create-implentation-phase.dto';
 
 @Injectable()
 export class ImplementationPhaseService {
@@ -13,7 +15,8 @@ export class ImplementationPhaseService {
     private model: Model<ImplementationPhaseDocument>,
   ) {}
 
-  create(createImplentationPhaseDto: CreateImplentationPhaseDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_createImplentationPhaseDto: CreateImplentationPhaseDto) {
     return 'This action adds a new implentationPhase';
   }
 
@@ -25,7 +28,8 @@ export class ImplementationPhaseService {
     return `This action returns a #${id} implentationPhase`;
   }
 
-  update(id: number, updateImplentationPhaseDto: UpdateImplentationPhaseDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, _updateImplentationPhaseDto: UpdateImplentationPhaseDto) {
     return `This action updates a #${id} implentationPhase`;
   }
 
