@@ -6,7 +6,7 @@ export type OvaDocument = HydratedDocument<Ova>;
 @Schema({ timestamps: true })
 export class Ova {
   @Prop()
-  idOva: string | number;
+  idOva: string;
 
   @Prop()
   title: string;

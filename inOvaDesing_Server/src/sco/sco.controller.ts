@@ -1,14 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ScoService } from './sco.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { SCOService } from './sco.service';
 import { CreateScoDto } from './dto/create-sco.dto';
 import { UpdateScoDto } from './dto/update-sco.dto';
 
 @Controller('sco')
 export class ScoController {
-  constructor(private readonly scoService: ScoService) {}
+  constructor(private readonly scoService: SCOService) {}
 
   @Post()
   create(@Body() createScoDto: CreateScoDto) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
     return this.scoService.create(createScoDto);
   }
 

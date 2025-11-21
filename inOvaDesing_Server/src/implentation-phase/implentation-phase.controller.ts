@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ImplentationPhaseService } from './implentation-phase.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CreateImplentationPhaseDto } from './dto/create-implentation-phase.dto';
 import { UpdateImplentationPhaseDto } from './dto/update-implentation-phase.dto';
+import { ImplementationPhaseService } from './implentation-phase.service';
 
 @Controller('implentation-phase')
 export class ImplentationPhaseController {
-  constructor(private readonly implentationPhaseService: ImplentationPhaseService) {}
+  constructor(
+    private readonly implentationPhaseService: ImplementationPhaseService,
+  ) {}
 
   @Post()
   create(@Body() createImplentationPhaseDto: CreateImplentationPhaseDto) {
@@ -23,8 +33,14 @@ export class ImplentationPhaseController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateImplentationPhaseDto: UpdateImplentationPhaseDto) {
-    return this.implentationPhaseService.update(+id, updateImplentationPhaseDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateImplentationPhaseDto: UpdateImplentationPhaseDto,
+  ) {
+    return this.implentationPhaseService.update(
+      +id,
+      updateImplentationPhaseDto,
+    );
   }
 
   @Delete(':id')

@@ -6,9 +6,13 @@ import {
   DevelopmentPhaseDocument,
 } from './schemas/development-phase.schema';
 import { UpdateDevelopmentPhaseDto } from './dto/update-development-phase.dto';
+import { CreateDevelopmentPhaseDto } from './dto/create-development-phase.dto';
 
 @Injectable()
 export class DevelopmentPhaseService {
+  create(createDevelopmentPhaseDto: CreateDevelopmentPhaseDto) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectModel(DevelopmentPhase.name)
     private model: Model<DevelopmentPhaseDocument>,
