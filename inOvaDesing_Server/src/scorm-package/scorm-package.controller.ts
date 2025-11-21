@@ -19,16 +19,16 @@ export class ScormPackageController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.scormPackageService.findOne(+id);
+    return this.scormPackageService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateScormPackageDto: UpdateScormPackageDto) {
-    return this.scormPackageService.update(+id, updateScormPackageDto);
+    return this.scormPackageService.update(id, updateScormPackageDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.scormPackageService.remove(+id);
+    return this.scormPackageService.remove(id);
   }
 }

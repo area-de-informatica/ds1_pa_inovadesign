@@ -19,16 +19,16 @@ export class ScormResourceController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.scormResourceService.findOne(+id);
+    return this.scormResourceService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateScormResourceDto: UpdateScormResourceDto) {
-    return this.scormResourceService.update(+id, updateScormResourceDto);
+    return this.scormResourceService.update(id, updateScormResourceDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.scormResourceService.remove(+id);
+    return this.scormResourceService.remove(id);
   }
 }

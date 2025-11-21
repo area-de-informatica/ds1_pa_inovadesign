@@ -12,28 +12,34 @@ import { UpdateScormManifestDto } from './dto/update-scorm-manifest.dto';
 export class ScormManifestService {
   constructor(
     @InjectModel(ScormManifest.name)
-    private model: Model<ScormManifestDocument>,
+    private readonly model: Model<ScormManifestDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createScormManifestDto: CreateScormManifestDto) {
-    return 'This action adds a new scormManifest';
+  // POST /scorm-manifest
+  async create(createScormManifestDto: CreateScormManifestDto) {
+    const doc = new this.model(createScormManifestDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all scormManifest`;
+  // GET /scorm-manifest
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} scormManifest`;
+  // GET /scorm-manifest/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateScormManifestDto: UpdateScormManifestDto) {
-    return `This action updates a #${id} scormManifest`;
+  // PATCH /scorm-manifest/:id
+  async update(id: string, updateScormManifestDto: UpdateScormManifestDto) {
+    return await this.model.findByIdAndUpdate(id, updateScormManifestDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} scormManifest`;
+  // DELETE /scorm-manifest/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

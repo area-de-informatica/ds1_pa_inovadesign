@@ -5,33 +5,42 @@ import {
   InstructorEvaluation,
   InstructorEvaluationDocument,
 } from './schemas/instructor-eval.schema';
+import { CreateInstructorEvalDto } from './dto/create-instructor-eval.dto';
+import { UpdateInstructorEvalDto } from './dto/update-instructor-eval.dto';
 
 @Injectable()
 export class InstructorEvaluationService {
   constructor(
     @InjectModel(InstructorEvaluation.name)
-    private model: Model<InstructorEvaluationDocument>,
+    private readonly model: Model<InstructorEvaluationDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_dto: any) {
-    return 'This action adds a new instructor evaluation';
+  // POST /instructor-evaluation
+  async create(createDto: CreateInstructorEvalDto) {
+    const doc = new this.model(createDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return 'This action returns all instructor evaluations';
+  // GET /instructor-evaluation
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} instructor evaluation`;
+  // GET /instructor-evaluation/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _dto: any) {
-    return `This action updates a #${id} instructor evaluation`;
+  // PATCH /instructor-evaluation/:id
+  async update(id: string, updateDto: UpdateInstructorEvalDto) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return await this.model.findByIdAndUpdate(id, updateDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} instructor evaluation`;
+  // DELETE /instructor-evaluation/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

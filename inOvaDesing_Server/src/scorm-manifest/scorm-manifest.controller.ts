@@ -19,16 +19,16 @@ export class ScormManifestController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.scormManifestService.findOne(+id);
+    return this.scormManifestService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateScormManifestDto: UpdateScormManifestDto) {
-    return this.scormManifestService.update(+id, updateScormManifestDto);
+    return this.scormManifestService.update(id, updateScormManifestDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.scormManifestService.remove(+id);
+    return this.scormManifestService.remove(id);
   }
 }

@@ -28,16 +28,16 @@ export class ScoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.scoService.findOne(+id);
+    return this.scoService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateScoDto: UpdateScoDto) {
-    return this.scoService.update(+id, updateScoDto);
+    return this.scoService.update(id, updateScoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.scoService.remove(+id);
+    return this.scoService.remove(id);
   }
 }

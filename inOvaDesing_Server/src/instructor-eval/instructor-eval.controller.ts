@@ -29,7 +29,7 @@ export class InstructorEvalController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.instructorEvaluationService.findOne(+id);
+    return this.instructorEvaluationService.findOne(id);
   }
 
   @Patch(':id')
@@ -37,14 +37,11 @@ export class InstructorEvalController {
     @Param('id') id: string,
     @Body() updateInstructorEvalDto: UpdateInstructorEvalDto,
   ) {
-    return this.instructorEvaluationService.update(
-      +id,
-      updateInstructorEvalDto,
-    );
+    return this.instructorEvaluationService.update(id, updateInstructorEvalDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.instructorEvaluationService.remove(+id);
+    return this.instructorEvaluationService.remove(id);
   }
 }

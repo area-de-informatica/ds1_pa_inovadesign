@@ -12,28 +12,34 @@ import { UpdateEvaluationPhaseDto } from './dto/update-evaluation-phase.dto';
 export class EvaluationPhaseService {
   constructor(
     @InjectModel(EvaluationPhase.name)
-    private model: Model<EvaluationPhaseDocument>,
+    private readonly model: Model<EvaluationPhaseDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createEvaluationPhaseDto: CreateEvaluationPhaseDto) {
-    return 'This action adds a new evaluationPhase';
+  // POST /evaluation-phase
+  async create(createEvaluationPhaseDto: CreateEvaluationPhaseDto) {
+    const doc = new this.model(createEvaluationPhaseDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all evaluationPhase`;
+  // GET /evaluation-phase
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} evaluationPhase`;
+  // GET /evaluation-phase/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateEvaluationPhaseDto: UpdateEvaluationPhaseDto) {
-    return `This action updates a #${id} evaluationPhase`;
+  // PATCH /evaluation-phase/:id
+  async update(id: string, updateEvaluationPhaseDto: UpdateEvaluationPhaseDto) {
+    return await this.model.findByIdAndUpdate(id, updateEvaluationPhaseDto, {
+      new: true, // devuelve el documento actualizado
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} evaluationPhase`;
+  // DELETE /evaluation-phase/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

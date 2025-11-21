@@ -30,7 +30,7 @@ export class DevelopmentPhaseController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.developmentPhaseService.findOne(+id);
+    return this.developmentPhaseService.findOne(id);
   }
 
   @Patch(':id')
@@ -38,11 +38,11 @@ export class DevelopmentPhaseController {
     @Param('id') id: string,
     @Body() updateDevelopmentPhaseDto: UpdateDevelopmentPhaseDto,
   ) {
-    return this.developmentPhaseService.update(+id, updateDevelopmentPhaseDto);
+    return this.developmentPhaseService.update(id, updateDevelopmentPhaseDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.developmentPhaseService.remove(+id);
+    return this.developmentPhaseService.remove(id);
   }
 }

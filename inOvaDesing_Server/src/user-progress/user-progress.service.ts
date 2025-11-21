@@ -6,33 +6,40 @@ import {
   UserProgressDocument,
 } from './schemas/user-progress.schema';
 import { CreateUserProgressDto } from './dto/create-user-progress.dto';
+import { UpdateUserProgressDto } from './dto/update-user-progress.dto';
 
 @Injectable()
 export class UserProgressService {
   constructor(
     @InjectModel(UserProgress.name)
-    private model: Model<UserProgressDocument>,
+    private readonly model: Model<UserProgressDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_dto: CreateUserProgressDto) {
-    return 'This action adds a new user progress record';
+  // POST /user-progress
+  async create(createDto: CreateUserProgressDto) {
+    const doc = new this.model(createDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return 'This action returns all user progress records';
+  // GET /user-progress
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user progress record`;
+  // GET /user-progress/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _dto) {
-    return `This action updates a #${id} user progress record`;
+  // PATCH /user-progress/:id
+  async update(id: string, updateDto: UpdateUserProgressDto) {
+    return await this.model.findByIdAndUpdate(id, updateDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user progress record`;
+  // DELETE /user-progress/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

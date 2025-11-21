@@ -19,16 +19,16 @@ export class LomMetadataController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.lomMetadataService.findOne(+id);
+    return this.lomMetadataService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLomMetadatumDto: UpdateLomMetadatumDto) {
-    return this.lomMetadataService.update(+id, updateLomMetadatumDto);
+    return this.lomMetadataService.update(id, updateLomMetadatumDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.lomMetadataService.remove(+id);
+    return this.lomMetadataService.remove(id);
   }
 }

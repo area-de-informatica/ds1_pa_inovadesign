@@ -5,33 +5,41 @@ import {
   LearningResource,
   LearningResourceDocument,
 } from './schemas/resource-ova.schema';
+import { CreateResourceOvumDto } from './dto/create-resource-ovum.dto';
+import { UpdateResourceOvumDto } from './dto/update-resource-ovum.dto';
 
 @Injectable()
 export class LearningResourceService {
   constructor(
     @InjectModel(LearningResource.name)
-    private model: Model<LearningResourceDocument>,
+    private readonly model: Model<LearningResourceDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_dto: any) {
-    return 'This action adds a new learning resource';
+  // POST /learning-resources
+  async create(createDto: CreateResourceOvumDto) {
+    const doc = new this.model(createDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return 'This action returns all learning resources';
+  // GET /learning-resources
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} learning resource`;
+  // GET /learning-resources/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _dto: any) {
-    return `This action updates a #${id} learning resource`;
+  // PATCH /learning-resources/:id
+  async update(id: string, updateDto: UpdateResourceOvumDto) {
+    return await this.model.findByIdAndUpdate(id, updateDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} learning resource`;
+  // DELETE /learning-resources/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

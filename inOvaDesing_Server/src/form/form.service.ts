@@ -1,35 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFormDto } from './dto/create-form.dto';
-import { UpdateFormDto } from './dto/update-form.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Form, FormDocument } from './schemas/form.schema';
+import { CreateFormDto } from './dto/create-form.dto';
+import { UpdateFormDto } from './dto/update-form.dto';
 
 @Injectable()
 export class FormService {
   constructor(
     @InjectModel(Form.name)
-    private model: Model<FormDocument>,
+    private readonly model: Model<FormDocument>,
   ) {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createFormDto: CreateFormDto) {
-    return 'This action adds a new form';
+
+  // POST /form
+  async create(createFormDto: CreateFormDto) {
+    const doc = new this.model(createFormDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all form`;
+  // GET /form
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} form`;
+  // GET /form/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateFormDto: UpdateFormDto) {
-    return `This action updates a #${id} form`;
+  // PATCH /form/:id
+  async update(id: string, updateFormDto: UpdateFormDto) {
+    return await this.model.findByIdAndUpdate(id, updateFormDto, {
+      new: true, // devuelve el documento actualizado
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} form`;
+  // DELETE /form/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

@@ -5,6 +5,8 @@ import {
   DesignPhase,
   DesignPhaseDocument,
 } from './schemas/design-phase.schema';
+import { CreateDesignPhaseDto } from './dto/create-design-phase.dto';
+import { UpdateDesignPhaseDto } from './dto/update-design-phase.dto';
 
 @Injectable()
 export class DesignPhaseService {
@@ -13,25 +15,31 @@ export class DesignPhaseService {
     private model: Model<DesignPhaseDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_dto: any) {
-    return 'This action adds a new design phase';
+  // CREATE
+  async create(createDto: CreateDesignPhaseDto) {
+    const newRecord = new this.model(createDto);
+    return await newRecord.save();
   }
 
-  findAll() {
-    return 'This action returns all design phases';
+  // FIND ALL
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} design phase`;
+  // FIND ONE
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _dto: any) {
-    return `This action updates a #${id} design phase`;
+  // UPDATE
+  async update(id: string, updateDto: UpdateDesignPhaseDto) {
+    return await this.model
+      .findByIdAndUpdate(id, updateDto, { new: true })
+      .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} design phase`;
+  // DELETE
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

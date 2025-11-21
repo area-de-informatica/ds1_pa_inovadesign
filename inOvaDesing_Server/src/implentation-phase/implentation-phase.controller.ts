@@ -29,7 +29,7 @@ export class ImplentationPhaseController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.implentationPhaseService.findOne(+id);
+    return this.implentationPhaseService.findOne(id);
   }
 
   @Patch(':id')
@@ -37,14 +37,11 @@ export class ImplentationPhaseController {
     @Param('id') id: string,
     @Body() updateImplentationPhaseDto: UpdateImplentationPhaseDto,
   ) {
-    return this.implentationPhaseService.update(
-      +id,
-      updateImplentationPhaseDto,
-    );
+    return this.implentationPhaseService.update(id, updateImplentationPhaseDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.implentationPhaseService.remove(+id);
+    return this.implentationPhaseService.remove(id);
   }
 }
