@@ -12,28 +12,37 @@ import { CreateImplentationPhaseDto } from './dto/create-implentation-phase.dto'
 export class ImplementationPhaseService {
   constructor(
     @InjectModel(ImplementationPhase.name)
-    private model: Model<ImplementationPhaseDocument>,
+    private readonly model: Model<ImplementationPhaseDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createImplentationPhaseDto: CreateImplentationPhaseDto) {
-    return 'This action adds a new implentationPhase';
+  // POST /implementation-phase
+  async create(createImplentationPhaseDto: CreateImplentationPhaseDto) {
+    const doc = new this.model(createImplentationPhaseDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all implentationPhase`;
+  // GET /implementation-phase
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} implentationPhase`;
+  // GET /implementation-phase/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateImplentationPhaseDto: UpdateImplentationPhaseDto) {
-    return `This action updates a #${id} implentationPhase`;
+  // PATCH /implementation-phase/:id
+  async update(
+    id: string,
+    updateImplentationPhaseDto: UpdateImplentationPhaseDto,
+  ) {
+    return await this.model.findByIdAndUpdate(id, updateImplentationPhaseDto, {
+      new: true, // devuelve el documento actualizado
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} implentationPhase`;
+  // DELETE /implementation-phase/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

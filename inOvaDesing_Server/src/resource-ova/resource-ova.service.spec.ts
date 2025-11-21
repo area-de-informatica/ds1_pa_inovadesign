@@ -9,6 +9,7 @@ describe('ResourceOvaService', () => {
       providers: [ResourceOvaService],
     }).compile();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument
     service = module.get<ResourceOvaService>(ResourceOvaService);
   });
 

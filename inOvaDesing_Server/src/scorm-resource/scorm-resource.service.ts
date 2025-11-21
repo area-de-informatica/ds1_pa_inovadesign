@@ -12,27 +12,34 @@ import { UpdateScormResourceDto } from './dto/update-scorm-resource.dto';
 export class ScormResourceService {
   constructor(
     @InjectModel(ScormResource.name)
-    private model: Model<ScormResourceDocument>,
+    private readonly model: Model<ScormResourceDocument>,
   ) {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createScormResourceDto: CreateScormResourceDto) {
-    return 'This action adds a new scormResource';
+
+  // POST /scorm-resource
+  async create(createScormResourceDto: CreateScormResourceDto) {
+    const doc = new this.model(createScormResourceDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all scormResource`;
+  // GET /scorm-resource
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} scormResource`;
+  // GET /scorm-resource/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateScormResourceDto: UpdateScormResourceDto) {
-    return `This action updates a #${id} scormResource`;
+  // PATCH /scorm-resource/:id
+  async update(id: string, updateScormResourceDto: UpdateScormResourceDto) {
+    return await this.model.findByIdAndUpdate(id, updateScormResourceDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} scormResource`;
+  // DELETE /scorm-resource/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

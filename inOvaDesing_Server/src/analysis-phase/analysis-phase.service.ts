@@ -5,6 +5,8 @@ import {
   AnalysisPhase,
   AnalysisPhaseDocument,
 } from './schemas/analysis.schema';
+import { CreateAnalysisPhaseDto } from './dto/create-analysis-phase.dto';
+import { UpdateAnalysisPhaseDto } from './dto/update-analysis-phase.dto';
 
 @Injectable()
 export class AnalysisPhaseService {
@@ -13,25 +15,31 @@ export class AnalysisPhaseService {
     private model: Model<AnalysisPhaseDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_dto: any) {
-    return 'This action adds a new analysis phase';
+  // CREATE
+  async create(createDto: CreateAnalysisPhaseDto) {
+    const newRecord = new this.model(createDto);
+    return await newRecord.save();
   }
 
-  findAll() {
-    return 'This action returns all analysis phases';
+  // FIND ALL
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} analysis phase`;
+  // FIND ONE (Mongo _id)
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _dto: any) {
-    return `This action updates a #${id} analysis phase`;
+  // UPDATE
+  async update(id: string, updateDto: UpdateAnalysisPhaseDto) {
+    return await this.model
+      .findByIdAndUpdate(id, updateDto, { new: true })
+      .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} analysis phase`;
+  // DELETE
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

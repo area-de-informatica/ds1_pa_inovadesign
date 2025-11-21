@@ -1,35 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { CreateQuestionDto } from './dto/create-question.dto';
-import { UpdateQuestionDto } from './dto/update-question.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Question, QuestionDocument } from './schemas/question.schema';
+import { CreateQuestionDto } from './dto/create-question.dto';
+import { UpdateQuestionDto } from './dto/update-question.dto';
 
 @Injectable()
 export class QuestionService {
   constructor(
     @InjectModel(Question.name)
-    private model: Model<QuestionDocument>,
+    private readonly model: Model<QuestionDocument>,
   ) {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createQuestionDto: CreateQuestionDto) {
-    return 'This action adds a new question';
+
+  // POST /questions
+  async create(createQuestionDto: CreateQuestionDto) {
+    const doc = new this.model(createQuestionDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all question`;
+  // GET /questions
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} question`;
+  // GET /questions/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateQuestionDto: UpdateQuestionDto) {
-    return `This action updates a #${id} question`;
+  // PATCH /questions/:id
+  async update(id: string, updateQuestionDto: UpdateQuestionDto) {
+    return await this.model.findByIdAndUpdate(id, updateQuestionDto, {
+      new: true, // devuelve el documento actualizado
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} question`;
+  // DELETE /questions/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

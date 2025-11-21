@@ -9,25 +9,34 @@ import { UpdateScoDto } from './dto/update-sco.dto';
 export class SCOService {
   constructor(
     @InjectModel(SCO.name)
-    private model: Model<SCODocument>,
+    private readonly model: Model<SCODocument>,
   ) {}
-  create(createScoDto: CreateScoDto) {
-    return 'This action adds a new sco';
+
+  // POST /sco
+  async create(createScoDto: CreateScoDto) {
+    const doc = new this.model(createScoDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all sco`;
+  // GET /sco
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} sco`;
+  // GET /sco/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  update(id: number, updateScoDto: UpdateScoDto) {
-    return `This action updates a #${id} sco`;
+  // PATCH /sco/:id
+  async update(id: string, updateScoDto: UpdateScoDto) {
+    return await this.model.findByIdAndUpdate(id, updateScoDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} sco`;
+  // DELETE /sco/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

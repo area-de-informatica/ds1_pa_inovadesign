@@ -19,16 +19,16 @@ export class DesignPhaseController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.designPhaseService.findOne(+id);
+    return this.designPhaseService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDesignPhaseDto: UpdateDesignPhaseDto) {
-    return this.designPhaseService.update(+id, updateDesignPhaseDto);
+    return this.designPhaseService.update(id, updateDesignPhaseDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.designPhaseService.remove(+id);
+    return this.designPhaseService.remove(id);
   }
 }

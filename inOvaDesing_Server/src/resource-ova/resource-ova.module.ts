@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import {
   LearningResource,
   LearningResourceSchema,
 } from './schemas/resource-ova.schema';
-import { MongooseModule } from '@nestjs/mongoose';
 import { LearningResourceService } from './resource-ova.service';
+import { LearningResourceController } from './resource-ova.controller';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { LearningResourceService } from './resource-ova.service';
       { name: LearningResource.name, schema: LearningResourceSchema },
     ]),
   ],
+  controllers: [LearningResourceController], // 👈 IMPORTANTE
   providers: [LearningResourceService],
   exports: [LearningResourceService],
 })

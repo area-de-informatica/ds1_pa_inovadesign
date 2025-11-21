@@ -12,28 +12,34 @@ import { UpdateScormPackageDto } from './dto/update-scorm-package.dto';
 export class ScormPackageService {
   constructor(
     @InjectModel(ScormPackage.name)
-    private model: Model<ScormPackageDocument>,
+    private readonly model: Model<ScormPackageDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createScormPackageDto: CreateScormPackageDto) {
-    return 'This action adds a new scormPackage';
+  // POST /scorm-package
+  async create(createScormPackageDto: CreateScormPackageDto) {
+    const doc = new this.model(createScormPackageDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all scormPackage`;
+  // GET /scorm-package
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} scormPackage`;
+  // GET /scorm-package/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateScormPackageDto: UpdateScormPackageDto) {
-    return `This action updates a #${id} scormPackage`;
+  // PATCH /scorm-package/:id
+  async update(id: string, updateScormPackageDto: UpdateScormPackageDto) {
+    return await this.model.findByIdAndUpdate(id, updateScormPackageDto, {
+      new: true, // devuelve el documento actualizado
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} scormPackage`;
+  // DELETE /scorm-package/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

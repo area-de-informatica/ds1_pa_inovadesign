@@ -19,16 +19,16 @@ export class ScormOrganizationController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.scormOrganizationService.findOne(+id);
+    return this.scormOrganizationService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateScormOrganizationDto: UpdateScormOrganizationDto) {
-    return this.scormOrganizationService.update(+id, updateScormOrganizationDto);
+    return this.scormOrganizationService.update(id, updateScormOrganizationDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.scormOrganizationService.remove(+id);
+    return this.scormOrganizationService.remove(id);
   }
 }

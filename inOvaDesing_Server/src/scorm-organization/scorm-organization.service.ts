@@ -12,28 +12,37 @@ import { UpdateScormOrganizationDto } from './dto/update-scorm-organization.dto'
 export class ScormOrganizationService {
   constructor(
     @InjectModel(ScormOrganization.name)
-    private model: Model<ScormOrganizationDocument>,
+    private readonly model: Model<ScormOrganizationDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createScormOrganizationDto: CreateScormOrganizationDto) {
-    return 'This action adds a new scormOrganization';
+  // POST /scorm-organization
+  async create(createScormOrganizationDto: CreateScormOrganizationDto) {
+    const doc = new this.model(createScormOrganizationDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return `This action returns all scormOrganization`;
+  // GET /scorm-organization
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} scormOrganization`;
+  // GET /scorm-organization/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateScormOrganizationDto: UpdateScormOrganizationDto) {
-    return `This action updates a #${id} scormOrganization`;
+  // PATCH /scorm-organization/:id
+  async update(
+    id: string,
+    updateScormOrganizationDto: UpdateScormOrganizationDto,
+  ) {
+    return await this.model.findByIdAndUpdate(id, updateScormOrganizationDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} scormOrganization`;
+  // DELETE /scorm-organization/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

@@ -2,33 +2,41 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Answer, AnswerDocument } from './schemas/answer.schema';
+import { CreateAnswerDto } from './dto/create-answer.dto';
+import { UpdateAnswerDto } from './dto/update-answer.dto';
 
 @Injectable()
 export class AnswerService {
   constructor(
     @InjectModel(Answer.name)
-    private model: Model<AnswerDocument>,
+    private readonly model: Model<AnswerDocument>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_dto: any) {
-    return 'This action adds a new answer';
+  // POST /answers
+  async create(createAnswerDto: CreateAnswerDto) {
+    const doc = new this.model(createAnswerDto);
+    return await doc.save();
   }
 
-  findAll() {
-    return 'This action returns all answers';
+  // GET /answers
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} answer`;
+  // GET /answers/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _dto: any) {
-    return `This action updates a #${id} answer`;
+  // PATCH /answers/:id
+  async update(id: string, updateAnswerDto: UpdateAnswerDto) {
+    return await this.model.findByIdAndUpdate(id, updateAnswerDto, {
+      new: true,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} answer`;
+  // DELETE /answers/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

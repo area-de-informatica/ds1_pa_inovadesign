@@ -10,28 +10,39 @@ import { CreateDevelopmentPhaseDto } from './dto/create-development-phase.dto';
 
 @Injectable()
 export class DevelopmentPhaseService {
-  create(createDevelopmentPhaseDto: CreateDevelopmentPhaseDto) {
-    throw new Error('Method not implemented.');
-  }
   constructor(
     @InjectModel(DevelopmentPhase.name)
-    private model: Model<DevelopmentPhaseDocument>,
+    private readonly model: Model<DevelopmentPhaseDocument>,
   ) {}
 
-  findAll() {
-    return `This action returns all developmentPhase`;
+  // POST /development-phase
+  async create(createDevelopmentPhaseDto: CreateDevelopmentPhaseDto) {
+    const doc = new this.model(createDevelopmentPhaseDto);
+    return await doc.save();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} developmentPhase`;
+  // GET /development-phase
+  async findAll() {
+    return await this.model.find().exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateDevelopmentPhaseDto: UpdateDevelopmentPhaseDto) {
-    return `This action updates a #${id} developmentPhase`;
+  // GET /development-phase/:id
+  async findOne(id: string) {
+    return await this.model.findById(id).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} developmentPhase`;
+  // PATCH /development-phase/:id
+  async update(
+    id: string,
+    updateDevelopmentPhaseDto: UpdateDevelopmentPhaseDto,
+  ) {
+    return await this.model.findByIdAndUpdate(id, updateDevelopmentPhaseDto, {
+      new: true, // devuelve el documento actualizado
+    });
+  }
+
+  // DELETE /development-phase/:id
+  async remove(id: string) {
+    return await this.model.findByIdAndDelete(id).exec();
   }
 }

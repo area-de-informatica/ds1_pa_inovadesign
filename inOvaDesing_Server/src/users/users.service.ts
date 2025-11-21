@@ -8,25 +8,32 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  create(_createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+
+  // CREATE
+  async create(createUserDto: CreateUserDto) {
+    const newUser = new this.userModel(createUserDto);
+    return await newUser.save();
   }
 
-  findAll() {
-    return `This action returns all users`;
+  // FIND ALL
+  async findAll() {
+    return await this.userModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  // FIND ONE
+  async findOne(id: string) {
+    return await this.userModel.findById(id).exec();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, _updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  // UPDATE
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return await this.userModel
+      .findByIdAndUpdate(id, updateUserDto, { new: true })
+      .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  // DELETE
+  async remove(id: string) {
+    return await this.userModel.findByIdAndDelete(id).exec();
   }
 }
