@@ -1,10 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import {
+  ScormPackage,
+  ScormPackageDocument,
+} from './schemas/scorm-package.schema';
 import { CreateScormPackageDto } from './dto/create-scorm-package.dto';
 import { UpdateScormPackageDto } from './dto/update-scorm-package.dto';
 
 @Injectable()
 export class ScormPackageService {
-  create(createScormPackageDto: CreateScormPackageDto) {
+  constructor(
+    @InjectModel(ScormPackage.name)
+    private model: Model<ScormPackageDocument>,
+  ) {}
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_createScormPackageDto: CreateScormPackageDto) {
     return 'This action adds a new scormPackage';
   }
 
@@ -16,7 +28,8 @@ export class ScormPackageService {
     return `This action returns a #${id} scormPackage`;
   }
 
-  update(id: number, updateScormPackageDto: UpdateScormPackageDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, _updateScormPackageDto: UpdateScormPackageDto) {
     return `This action updates a #${id} scormPackage`;
   }
 

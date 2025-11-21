@@ -11,7 +11,8 @@ export class FormService {
     @InjectModel(Form.name)
     private model: Model<FormDocument>,
   ) {}
-  create(createFormDto: CreateFormDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_createFormDto: CreateFormDto) {
     return 'This action adds a new form';
   }
 
@@ -23,7 +24,8 @@ export class FormService {
     return `This action returns a #${id} form`;
   }
 
-  update(id: number, updateFormDto: UpdateFormDto) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, _updateFormDto: UpdateFormDto) {
     return `This action updates a #${id} form`;
   }
 

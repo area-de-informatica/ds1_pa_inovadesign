@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import {
+  UserProgress,
+  UserProgressDocument,
+} from './schemas/user-progress.schema';
 import { CreateUserProgressDto } from './dto/create-user-progress.dto';
-import { UpdateUserProgressDto } from './dto/update-user-progress.dto';
 
 @Injectable()
 export class UserProgressService {
-  create(createUserProgressDto: CreateUserProgressDto) {
-    return 'This action adds a new userProgress';
+  constructor(
+    @InjectModel(UserProgress.name)
+    private model: Model<UserProgressDocument>,
+  ) {}
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  create(_dto: CreateUserProgressDto) {
+    return 'This action adds a new user progress record';
   }
 
   findAll() {
-    return `This action returns all userProgress`;
+    return 'This action returns all user progress records';
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} userProgress`;
+    return `This action returns a #${id} user progress record`;
   }
 
-  update(id: number, updateUserProgressDto: UpdateUserProgressDto) {
-    return `This action updates a #${id} userProgress`;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(id: number, _dto) {
+    return `This action updates a #${id} user progress record`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} userProgress`;
+    return `This action removes a #${id} user progress record`;
   }
 }
